@@ -25,13 +25,14 @@ def main():
 
 
 #   -> INSERT - CULTURE <-
-@app.route('/insert/culture/<string:popularName>/<string:scientificName>/<int:intensity>/<int:time>')
-def insert_culture(popularName, scientificName, intensity, time):
+@app.route('/insert/culture/<string:popularName>/<string:scientificName>/<int:minimumLuminosity>/<int:maximumLuminosity>/<int:time>')
+def insert_culture(popularName, scientificName, minimumLuminosity, maximumLuminosity, time):
     try:
         data = {
             'nome_popular': popularName,
             'nome_cientifico': scientificName,
-            'luminosidade_recomendada': intensity,
+            'luminosidade_minima': minimumLuminosity,
+            'luminosidade_maxima': maximumLuminosity,
             'tempo_exposicao': time
         }
         DB.culture.insert_one(data)
