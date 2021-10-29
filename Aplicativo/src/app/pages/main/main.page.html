@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Página inicial</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content> 
+  <ion-list>  
+    <ion-item id="itemLista">
+      <ion-label id=slotEsquerda slot="start">
+        <p><a id="nomeSensor" href="/details">{{nomeSensor}}</a></p>
+        <p>Cultura: {{nomePopular}} ({{nomeCientifico}})</p>
+        <p> {{tempoExposicao}} </p>
+      </ion-label>
+
+      <ion-label id=slotDireita slot="end">
+        <p id="valorSensor">{{valorCaptado}}</p>
+        <ion-button href="/config" fill="clear"><ion-icon id="iconeConfiguracao" name="cog-outline"></ion-icon> </ion-button>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar>
+    <p id="creditos">
+      HappyFlowers App 1.0 por:<br>
+      Karin Angela Nogueira;<br>
+      Mateus Bonacina Zanguettin<br>
+      Rafael José Zanette;<br>
+      Ricardo Silva dos Santos.
+    </p>
+  </ion-toolbar>
+</ion-footer>

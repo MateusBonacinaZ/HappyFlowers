@@ -1,0 +1,35 @@
+<ion-header>  
+  <ion-toolbar>
+    <ion-title>Configuração</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- CAMPO DE TEXTO DO NOME DO SENSOR -->
+  <p>
+    Digite o nome do sensor:
+  </p>
+  <ion-input id='formularioNome' [(ngModel)]='nomeSensor'></ion-input>
+
+  <!-- BOTÃO DE SELEÇÃO DA CULTURA -->
+  <p>
+    Selecione a cultura que está cultivando:
+  </p>
+  <ion-select id="selecionarCultura" placeholder="Selecione uma cultura"[(ngModel)]= "cultura">
+    <ion-select-option value="Abacaxi-ornamental">Abacaxi-ornamental</ion-select-option>
+    <ion-select-option value="Bastão-do-imperador">Bastão-do-imperador</ion-select-option>
+    <ion-select-option value="Estrelítzia">Estrelítzia</ion-select-option>
+    <ion-select-option value="Musa">Musa</ion-select-option>
+    <ion-select-option value="Papiro">Papiro</ion-select-option>
+    <ion-select-option value="Angélica">Angélica</ion-select-option>
+    <ion-select-option value="Sempre-vivas">Sempre-vivas</ion-select-option>
+    <ion-select-option value="Tango">Tango</ion-select-option>
+  </ion-select>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button href="/main" slot="start" (click)="insert_config()">Confirmar</ion-button>
+    <ion-button href="/main" slot="end">Voltar</ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,58 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+// Adicionando cor de fundo do cabeçalho
+ion-content{
+    --padding-start: 1px;
+    --padding-end: 1px;
+}
+
+ion-title{
+    text-align: center;
+    color: #FFAD42;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+ion-header{
+    --ion-background-color: #87FF4F;    
+    text-align: center;
+}
+
+// Adicionando cor de fundo da página principal
+ion-content{
+    --ion-background-color: #87FF4F;
+}
+
+ion-footer{
+    --ion-background-color: #87FF4F;
+}
+
+ion-button{
+    --background: #FFFFFF;
+    --color: #000000;
+}

@@ -1,0 +1,29 @@
+ion-item#itemLista{
+    --background: #FFFFFF;
+    --padding-start: 1px;
+    --padding-end: 1px;
+}
+
+ion-label#slotEsquerda{
+    --padding-start: 1px;
+}
+
+ion-label#slotDireita{
+    text-align: right;
+    --padding-end: 1px;
+}
+
+a#nomeSensor{
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+}
+
+p#creditos{
+    font-size: 10px;
+    color: #000000;
+}
+
+ion-icon#iconeConfiguracao{
+    color: #000000;
+}

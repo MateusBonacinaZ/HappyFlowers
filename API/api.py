@@ -1,10 +1,12 @@
 import os
 import datetime
+from flask_cors import CORS
 from flask import Flask, jsonify
 from pymongo import MongoClient
 
 
 app = Flask(__name__)
+CORS(app)
 client = MongoClient('mongodb+srv://bonacina:211002@happy-flowers.bcypn.mongodb.net/happy-flowers?retryWrites=true&w=majority')
 DB = client['happy-flowers']
 
@@ -12,7 +14,7 @@ DB = client['happy-flowers']
 #   -> MENSAGENS DE RETOTONO <-
 INSERT_SUCCESSFUL = "<h1>HappyFlowers: Insert</h1><p>A data foi inserida com sucesso no banco de dados!</p>"
 INSERT_ERROR = "<h1>HappyFlowers: Insert</h1><p>Ocorreu um erro ao inserir os dados no banco de dados!</p>"
-FIND_ERROR = "<h1>HappyFlowers: Insert</h1><p>Ocorreu um erro ao obter os dados do banco de dados!</p>"
+FIND_ERROR = "<h1>HappyFlowers: Find</h1><p>Ocorreu um erro ao obter os dados do banco de dados!</p>"
 
 
 #   ->  PÁGINA INICIAL <-
@@ -79,26 +81,91 @@ def insert_config(sensorName, culture):
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=FIND=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-#  
 
+#   -> FIND - GRÁFICO   <-
+@app.route('/find/graphic')
+def find_graphic():
+    fullList =[]
+    for x in range(0,24):
+        data_atual = datetime.datetime.now()
+        data_inicial = datetime.datetime(
+            data_atual.year,
+            data_atual.month,
+            data_atual.day,
+            x,
+            0
+        )   
 
-#   -> FIND - CULTURE   <-
+        data_final = datetime.datetime(
+            data_atual.year,
+            data_atual.month,
+            data_atual.day,
+            x,
+            59
+        )
+
+        loopValue = []
+        sendValue = 0.0
+        for y in DB.sensor.find({'data_e_hora':{'$lt':data_final, '$gt':data_inicial}, 'cultura': DB.config.find_one()['cultura']}):
+            loopValue.append(y['luminosidade_captada'])
+        
+        if len(loopValue) > 0:
+            sendValue = sum(loopValue)/len(loopValue)
+        else:
+            sendValue = 0
+        fullList.append(sendValue)
+
+    return jsonify(fullList)
+
+
+#   -> FIND - INFOS   <-
 @app.route('/find/infos')
-def find_culture():
-    try:
-        dataValue = []
-        for x in DB.sensor.find().limit(1).sort("$natural",-1):
-            dataValue.append(x['luminosidade_captada'])
-            dataValue.append(x['tempo_exposicao'])
+def find_infos():
+    dataValue = []
+    for x in DB.sensor.find({'cultura': DB.config.find_one()['cultura']}).limit(1).sort("$natural",-1):
+        dataValue.append(x['luminosidade_captada'])
+       
+    if len(dataValue) == 0:
+        dataValue.append(0)
 
-        dataConfig = DB.culture.find_one({'nome_popular':DB.config.find_one()['cultura']})
-        data = {
-            'nome_popular': dataConfig['nome_popular'],
-            'nome_cientifico': dataConfig['nome_cientifico'],
-            'valor_captado': dataValue[0],
-            'tempo_exposicao': dataValue[1]
-        }
-        return jsonify(data)
-    except:
-        return FIND_ERROR
+    dataConfig = DB.culture.find_one({'nome_popular':DB.config.find_one()['cultura']})
+    data = {
+        'nome_sensor': DB.config.find_one({})['nome_sensor'],
+        'nome_popular': dataConfig['nome_popular'],
+        'nome_cientifico': dataConfig['nome_cientifico'],
+        'valor_captado': dataValue[0],
+        'tempo_exposicao': calcular_exposicao()
+    }
+    return jsonify(data)
+
+
+
+def calcular_exposicao():
+    somaExposicao=0
+
+    data_atual = datetime.datetime.now()
+    data_inicial = datetime.datetime(
+	    data_atual.year,
+	    data_atual.month,
+	    data_atual.day,
+    )   
+
+    data_final = datetime.datetime(
+	    data_atual.year,
+        data_atual.month,
+        data_atual.day,
+        23,
+        59
+    )
+    
+    for x in DB.sensor.find({'data_e_hora':{'$lt':data_final, '$gt':data_inicial}, 'cultura': DB.config.find_one()['cultura']}):
+        somaExposicao = somaExposicao+x['tempo_exposicao']
+
+    # Retornar os minutos que faltam para satisfazer a planta;
+    if somaExposicao < DB.culture.find_one({'nome_popular':DB.config.find_one()['cultura']})['tempo_exposicao']:
+        remainingMinutes = DB.culture.find_one({'nome_popular':DB.config.find_one()['cultura']})['tempo_exposicao'] - somaExposicao
+        return f'Faltam {remainingMinutes} minutos de sol!'
+    elif somaExposicao >= DB.culture.find_one({'nome_popular':DB.config.find_one()['cultura']})['tempo_exposicao']:
+        return 'Sol satisfeito!'
 
 
 #   -> START FLASK PROGRAM <-

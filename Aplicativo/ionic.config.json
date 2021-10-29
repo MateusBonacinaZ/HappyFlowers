@@ -1,0 +1,7 @@
+{
+  "name": "HappyFlowers",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
