@@ -2,34 +2,35 @@
   Projeto HappyFlowers (v1.0)
 
 ** Copyright 2021 HappyFlowers.
-  Escrito por Ricardo SS (29/10/2021).
+  Escrito por Ricardo SS (12/11/2021).
 
 *******************************************************************************/
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <Wire.h>
+#include <BH1750.h>
 
-//#define sensor_LDR 27 // for ESP32 microcontroller (ADCs de 12 bits)
-#define sensorPin_LDR 33 //GPIO usado para captura analógica
-int LDR_value = 0;
 int tempoExposicao = 0;
+const int limitInferior = 14825;
+const int limitSuperior = 20000;
+
+BH1750 lightMeter;
 
 //Put your SSID & Password
-//const char* ssid = "HUAWEI P30 Pro";
-//const char* password = "Jesus Cristo";
-const char* ssid = "Cristo Salva";
-const char* password = "4736351761";
+//const char* ssid = "Cristo Salva";
+//const char* password = "4736351761";
+const char* ssid = "OTT";
+const char* password = "12345678";
 
 
 
 
 void setup() {
-  Serial.begin(9600);  //Iniciciando a porta serial somente para debug
+  Serial.begin(9600);  //Inicializa a porta serial somente para debug
   delay(100);
+  Wire.begin(); //Inicializa O I2C BUS
+  lightMeter.begin(); //Inicializa a medição de luminosidade
 
-  pinMode(sensorPin_LDR, INPUT); //Pino utilizado para captura analógica
-  adcAttachPin(sensorPin_LDR);
-  analogReadResolution(10); //para limitar o ADC de 12 bits para 10 bits
-  //analogSetAttenuation(ADC_6db);
 
   // Connect to Wi-Fi
 
@@ -51,20 +52,21 @@ void setup() {
 }
 
 void loop() {
-  //Leitura do Sensor LDR
-  LDR_value = analogRead(sensorPin_LDR);
+  //Leitura do Sensor GY30 BH1750
+  float lux = lightMeter.readLightLevel(); //Variavel para receber o valor de luminosidade lido
+  Serial.print("Luminosidade: ");
+  Serial.print(lux);
+  Serial.println(" lux");
 
-  Serial.print("LDR: ");
-  Serial.print(LDR_value);
-  float tensaoR10k = 0.0;
-  tensaoR10k = (LDR_value * (3.3 / 4095));
-  Serial.print(" e Tensão sobre R10K: ");
-  Serial.println(tensaoR10k);
-
-
+  if (lux > limitInferior) {
+    tempoExposicao = 1;
+  }
+  else {
+    tempoExposicao = 0;
+  }
 
   String insert_API = "https://happyflowers-api.herokuapp.com/insert/sensor/";
-  insert_API = insert_API + LDR_value + "/" + tempoExposicao;
+  insert_API = insert_API + lux + "/" + tempoExposicao;
 
   if ((WiFi.status() == WL_CONNECTED)) { //Check the current connection status
 
@@ -74,7 +76,7 @@ void loop() {
     Serial.println(insert_API);
     //http.begin("https://happyflowers-api.herokuapp.com/insert/sensor/27600/10");
     http.begin(insert_API);
-    int httpCode = http.GET();                                        //Make the request
+    int httpCode = http.GET();  //Make the request
 
     if (httpCode > 0) { //Check for the returning code
 
@@ -89,7 +91,6 @@ void loop() {
 
     http.end(); //Free the resources
   }
-
   delay(60000);
 
 }
