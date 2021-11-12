@@ -44,7 +44,7 @@ def insert_culture(popularName, scientificName, minimumLuminosity, maximumLumino
 
 
 #   -> INSERT - SENSOR
-@app.route('/insert/sensor/<int:luminosity>/<int:time>')
+@app.route('/insert/sensor/<float:luminosity>/<int:time>')
 def insert_sensor( luminosity, time):
     try:
         data = {
