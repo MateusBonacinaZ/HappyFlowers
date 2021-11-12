@@ -15,7 +15,8 @@
       </ion-label>
 
       <ion-label id=slotDireita slot="end">
-        <p id="valorSensor">{{valorCaptado}}</p>
+        <p id="valorSensor" style="color:#87FF4F" *ngIf="(valorCaptado >= 14825) && (valorCaptado <= 20000)">{{valorCaptado}}</p>
+        <p id="valorSensor" style="color:#FF0000" *ngIf="(valorCaptado < 14825) || (valorCaptado > 20000)">{{valorCaptado}}</p>        
         <ion-button href="/config" fill="clear"><ion-icon id="iconeConfiguracao" name="cog-outline"></ion-icon> </ion-button>
       </ion-label>
     </ion-item>

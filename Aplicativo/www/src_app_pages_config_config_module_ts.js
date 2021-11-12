@@ -1,4 +1,4 @@
-(self["webpackChunkhappyflowers_app"] = self["webpackChunkhappyflowers_app"] || []).push([["src_app_pages_config_config_module_ts"],{
+(self["webpackChunkHappyFlowers"] = self["webpackChunkHappyFlowers"] || []).push([["src_app_pages_config_config_module_ts"],{
 
 /***/ 84675:
 /*!*******************************************************!*\

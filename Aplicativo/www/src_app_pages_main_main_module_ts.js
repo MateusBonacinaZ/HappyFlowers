@@ -1,4 +1,4 @@
-(self["webpackChunkhappyflowers_app"] = self["webpackChunkhappyflowers_app"] || []).push([["src_app_pages_main_main_module_ts"],{
+(self["webpackChunkHappyFlowers"] = self["webpackChunkHappyFlowers"] || []).push([["src_app_pages_main_main_module_ts"],{
 
 /***/ 33907:
 /*!***************************************************!*\
@@ -163,7 +163,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Página inicial</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content> \n  <ion-list>  \n    <ion-item id=\"itemLista\">\n      <ion-label id=slotEsquerda slot=\"start\">\n        <p><a id=\"nomeSensor\" href=\"/details\">{{nomeSensor}}</a></p>\n        <p>Cultura: {{nomePopular}} ({{nomeCientifico}})</p>\n        <p> {{tempoExposicao}} </p>\n      </ion-label>\n\n      <ion-label id=slotDireita slot=\"end\">\n        <p id=\"valorSensor\">{{valorCaptado}}</p>\n        <ion-button href=\"/config\" fill=\"clear\"><ion-icon id=\"iconeConfiguracao\" name=\"cog-outline\"></ion-icon> </ion-button>\n      </ion-label>\n    </ion-item>\n\n  </ion-list>\n</ion-content>\n\n\n<ion-footer>\n  <ion-toolbar>\n    <p id=\"creditos\">\n      HappyFlowers App 1.0 por:<br>\n      Karin Angela Nogueira;<br>\n      Mateus Bonacina Zanguettin<br>\n      Rafael José Zanette;<br>\n      Ricardo Silva dos Santos.\n    </p>\n  </ion-toolbar>\n</ion-footer>");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Página inicial</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content> \n  <ion-list>  \n    <ion-item id=\"itemLista\">\n      <ion-label id=slotEsquerda slot=\"start\">\n        <p><a id=\"nomeSensor\" href=\"/details\">{{nomeSensor}}</a></p>\n        <p>Cultura: {{nomePopular}} ({{nomeCientifico}})</p>\n        <p> {{tempoExposicao}} </p>\n      </ion-label>\n\n      <ion-label id=slotDireita slot=\"end\">\n        <p id=\"valorSensor\" style=\"color:#87FF4F\" *ngIf=\"(valorCaptado >= 14825) && (valorCaptado <= 20000)\">{{valorCaptado}}</p>\n        <p id=\"valorSensor\" style=\"color:#FF0000\" *ngIf=\"(valorCaptado < 14825) || (valorCaptado > 20000)\">{{valorCaptado}}</p>        \n        <ion-button href=\"/config\" fill=\"clear\"><ion-icon id=\"iconeConfiguracao\" name=\"cog-outline\"></ion-icon> </ion-button>\n      </ion-label>\n    </ion-item>\n\n  </ion-list>\n</ion-content>\n\n\n<ion-footer>\n  <ion-toolbar>\n    <p id=\"creditos\">\n      HappyFlowers App 1.0 por:<br>\n      Karin Angela Nogueira;<br>\n      Mateus Bonacina Zanguettin<br>\n      Rafael José Zanette;<br>\n      Ricardo Silva dos Santos.\n    </p>\n  </ion-toolbar>\n</ion-footer>");
 
 /***/ })
 
