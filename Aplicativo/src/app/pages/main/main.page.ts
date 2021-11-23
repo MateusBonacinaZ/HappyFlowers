@@ -19,7 +19,7 @@ export class MainPage implements OnInit {
 
   ngOnInit() {
     this.http.get("https://happyflowers-api.herokuapp.com/find/infos").subscribe(data => {
-      this.nomeSensor = data['nome_sensor'],
+      this.nomeSensor = data['nome_sensor'],  
       this.nomeCientifico= data['nome_cientifico'],
       this.nomePopular= data['nome_popular'],
       this.tempoExposicao= data['tempo_exposicao'],
