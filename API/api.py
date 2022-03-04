@@ -1,3 +1,8 @@
+"""
+ Projeto HappyFlowers (v1.0)
+ Escrito por Mateus Bonacina Zanguettin (12/11/2021).
+"""
+
 import os
 import datetime
 from flask_cors import CORS
