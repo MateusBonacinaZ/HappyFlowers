@@ -1,3 +1,8 @@
+/*
+ Projeto HappyFlowers (v1.0)
+ Escrito por Mateus Bonacina Zanguettin (12/11/2021).
+*/
+
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Router } from '@angular/router';
